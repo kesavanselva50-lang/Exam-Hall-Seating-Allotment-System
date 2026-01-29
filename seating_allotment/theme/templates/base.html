@@ -1,26 +1,110 @@
-{% load static tailwind_tags %}
+{% load static %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Django Tailwind</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}JMC | Exam Management{% endblock %}</title>
     {% tailwind_css %}
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .sidebar-active { 
+            background: #004d26; 
+            color: white !important; 
+            box-shadow: 0 10px 15px -3px rgba(0, 77, 38, 0.3); 
+        }
+        /* Custom scrollbar for professional look */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0f172a; border-radius: 10px; }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-black font-serif leading-normal tracking-normal">
+<body class="bg-[#f8fafc] text-slate-900 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        
+        <aside class="w-72 bg-[#0f172a] text-slate-400 flex flex-col shrink-0 z-20 shadow-2xl">
+            <div class="p-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 bg-[#004d26] rounded-xl flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-900/40">J</div>
+                    <h2 class="text-xl font-extrabold text-white tracking-tighter uppercase">JMC EXAM</h2>
+                </div>
+            </div>
+            
+            <nav class="flex-grow px-6 space-y-1.5 overflow-y-auto mt-4">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4 px-2">Main Navigation</p>
+                
+                <a href="" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white {% if request.resolver_match.url_name == 'dashboard' %}sidebar-active{% endif %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+                    <span class="font-semibold text-sm">Dashboard</span>
+                </a>
 
-    <div class="toast toast-top toast-end">
-        <div class="alert alert-info">
-            <span>Hello from daisyUi 👋</span>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white hover:bg-slate-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <span class="font-semibold text-sm">Students List</span>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white hover:bg-slate-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    <span class="font-semibold text-sm">Exam Halls</span>
+                </a>
+
+                <div class="pt-8">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] px-2 mb-4">Actions</p>
+                    <a href="#" class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <span class="font-bold text-xs uppercase tracking-wider">Run Allotment</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="p-6 border-t border-slate-800/50">
+                <div class="flex items-center gap-3 bg-slate-800/40 p-3 rounded-2xl border border-slate-700/50">
+                    <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs uppercase">
+                       
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="text-xs font-bold text-white truncate"></p>
+                        <p class="text-[10px] text-slate-500 truncate">Controller Office</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-grow flex flex-col min-w-0 overflow-hidden">
+            
+            <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 shrink-0">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-lg font-bold text-slate-800 tracking-tight"></h1>
+                    <div class="flex items-center gap-2 bg-emerald-50 px-3 py-1 rounded-full">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-[9px] font-black text-emerald-700 uppercase tracking-widest">System Live</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:flex flex-col text-right border-r border-slate-100 pr-6">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Session</span>
+                        <span class="text-xs font-bold text-slate-800">2025-26 Academic Year</span>
+                    </div>
+                    <form method="post" action="" class="inline">
+                       
+                        <button type="submit" class="p-2.5 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </header>
+
+            <main class="flex-grow overflow-y-auto p-8 lg:p-12">
+                <div class="max-w-7xl mx-auto">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </main>
         </div>
     </div>
-
-<div class="container mx-auto">
-    <section class="flex items-center justify-center h-screen">
-        <h1 class="text-5xl">Django + Tailwind = ❤️</h1>
-    </section>
-</div>
 </body>
 </html>
