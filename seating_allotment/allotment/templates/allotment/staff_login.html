@@ -1,138 +1,140 @@
 {% extends "base.html" %}
-{% block title %}staff_login{% endblock %}
+{% block title %}Staff Authentication | JMC{% endblock %}
 
 {% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Portal | Jamal Mohamed College</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .jmc-green { background-color: #004d26; } /* Official-style Deep Green */
-        .text-jmc-green { color: #004d26; }
-        .border-jmc-green { border-color: #004d26; }
-    </style>
-</head>
-<body class="min-h-screen bg-slate-50 flex flex-col">
-
-    <div class="fixed inset-0 z-[-1] opacity-10 pointer-events-none">
-        <svg width="100%" height="100%"><rect width="100%" height="100%" fill="url(#grid)" /><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern></defs></svg>
+<div class="min-h-screen bg-gradient-to-br from-[#1e88e5] via-[#42a5f5] to-[#90caf9] flex items-center justify-center p-4 font-['Plus_Jakarta_Sans'] relative overflow-hidden">
+    
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <svg width="100%" height="100%"><rect width="100%" height="100%" fill="url(#grid)" /><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs></svg>
     </div>
 
-    <main class="flex-grow flex flex-col lg:flex-row items-center justify-center p-4 lg:p-12 gap-16 max-w-7xl mx-auto w-full">
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative w-full max-w-6xl flex flex-col lg:flex-row items-center gap-12 z-10">
         
-        <div class="text-center lg:text-left flex flex-col items-center lg:items-start max-w-lg">
-            <div class="bg-white p-4 rounded-xl shadow-sm mb-8">
-                <img src="https://www.jmc.edu/images/logo.png" alt="JMC Logo" class="h-24 object-contain">
+        <div class="text-center lg:text-left text-white flex-1 space-y-8">
+            <div class="inline-block bg-white p-2 rounded-full shadow-2xl mb-2 animate-bounce-slow border-4 border-yellow-400">
+                <img src="/static/images/jmc_logo.jpg" alt="Jamal Mohamed College Logo" class="h-32 w-32 object-cover rounded-full">
             </div>
             
-            <h1 class="text-3xl lg:text-5xl font-extrabold tracking-tight text-slate-800 leading-tight">
-                JAMAL MOHAMED <span class="text-jmc-green underline decoration-yellow-500 underline-offset-8">COLLEGE</span>
-            </h1>
-            <p class="text-lg font-medium text-slate-500 mt-4 tracking-widest uppercase">Autonomous | Trichy - 20</p>
-            
-            <div class="mt-10 space-y-4 w-full">
-                <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm border-l-4 border-yellow-500">
-                    <div class="bg-yellow-50 p-2 rounded text-yellow-700">📅</div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-700">Examination Schedule</p>
-                        <p class="text-xs text-slate-500">First Internal Test - January 2026</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm border-l-4 border-jmc-green">
-                    <div class="bg-green-50 p-2 rounded text-jmc-green">🔒</div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-700">Staff Examination Portal</p>
-                        <p class="text-xs text-slate-500">Access Restricted to Authorized Personnel</p>
-                    </div>
-                </div>
+            <div class="space-y-2">
+                <h1 class="font-['Outfit'] text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9]">
+                    JAMAL MOHAMED <br><span class="text-yellow-300 text-6xl lg:text-8xl">COLLEGE</span>
+                </h1>
+                <p class="text-lg lg:text-xl font-extrabold opacity-90 tracking-[0.4em] uppercase pt-2">Autonomous | Trichy - 20</p>
             </div>
+
+            <div class="flex flex-col gap-4 max-w-md mx-auto lg:mx-0">
+                <div class="h-1.5 w-24 bg-yellow-400 rounded-full mx-auto lg:mx-0"></div>
+                <p class="text-lg leading-relaxed font-medium opacity-90">
+                    Secure Access Portal for Faculty and Examination Personnel. Please log in to manage academic operations.
+                </p>
+            </div>
+
+            <p class="text-xs font-extrabold opacity-80 flex items-center justify-center lg:justify-start gap-3 bg-white/10 backdrop-blur-md p-3 px-6 rounded-full inline-flex border border-white/20 uppercase tracking-widest">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+                Authorized Personnel Only
+            </p>
         </div>
 
-        <div class="card bg-white w-full max-w-md shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-100 rounded-2xl overflow-hidden">
-            <div class="h-2 w-full jmc-green flex">
-                <div class="w-1/3 h-full bg-yellow-500"></div>
+        <div class="bg-white rounded-[3rem] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.35)] w-full max-w-lg overflow-hidden border border-white/20">
+            <div class="h-3 w-full flex">
+                <div class="h-full w-2/3 bg-[#004d26]"></div>
+                <div class="h-full w-1/3 bg-yellow-400"></div>
             </div>
 
-            <div class="p-8 lg:p-10">
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold text-slate-800">Staff Authentication</h2>
-                    <p class="text-slate-400 text-sm mt-1">Please select your credentials to continue</p>
+            <div class="p-10 lg:p-14">
+                <div class="text-center mb-10">
+                    <h2 class="font-['Outfit'] text-4xl font-black text-slate-800 tracking-tight">Staff Login</h2>
+                    <p class="text-slate-400 text-xs font-bold mt-2 uppercase tracking-[0.2em]">Examination Management System</p>
                 </div>
 
-                <form class="space-y-5">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold text-slate-600">Department</span>
-                        </label>
-                        <select class="select select-bordered bg-slate-50 border-slate-200 focus:outline-jmc-green w-full">
+                <form action="#" method="POST" class="space-y-6">
+                    <div class="relative group">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                        </span>
+                        <select class="w-full bg-slate-50 border-2 border-slate-100 rounded-[1.5rem] pl-14 pr-10 py-5 appearance-none focus:bg-white focus:border-blue-600 outline-none transition-all text-slate-700 font-bold text-sm">
                             <option disabled selected>Select Department</option>
-                            <option>Information Technology</option>
+                            <option>Computer Applications</option>
                             <option>Computer Science</option>
-                            <option>Arabic</option>
-                            <option>Management Studies</option>
+                            <option>Mathematics</option>
+                            <option>Physics</option>
+                            <option>Chemistry</option>
+                            <option>zoology</option>
+                            <option>Economics</option>
+                            <option>English</option>
+                            <option>History</option>
+                            <option>Commerce</option>
+                            <option>Tamil</option>
+                            <option>Management</option>
+                            <option>Geography</option>
+                            <option>others</option>
+                        <option>Fine Arts</option>
                         </select>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold text-slate-600">Staff Member</span>
-                        </label>
-                        <select class="select select-bordered bg-slate-50 border-slate-200 focus:outline-jmc-green w-full">
-                            <option disabled selected>Select Name</option>
-                        </select>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold text-slate-600">Password</span>
-                        </label>
-                        <div class="relative">
-                            <input type="password" placeholder="Enter security key" class="input input-bordered bg-slate-50 border-slate-200 focus:outline-jmc-green w-full pr-10" />
-                            <span class="absolute right-3 top-3 opacity-30">🔑</span>
+                        <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
 
-                    <div class="pt-4 space-y-3">
-                        <button class="btn jmc-green hover:opacity-90 text-white border-none w-full text-md font-bold rounded-lg transition-all duration-300">
-                            Login to Portal
-                        </button>
-                        
-                        <div class="divider text-[10px] uppercase tracking-widest text-slate-400">Administration</div>
-                        
-                        <button type="button" class="btn btn-ghost btn-sm w-full text-slate-500 hover:bg-slate-100 normal-case flex items-center gap-2">
-                            <span>📄</span> Download Substitution Form
+                    <div class="relative group">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        </span>
+                        <select class="w-full bg-slate-50 border-2 border-slate-100 rounded-[1.5rem] pl-14 pr-10 py-5 appearance-none focus:bg-white focus:border-blue-600 outline-none transition-all text-slate-700 font-bold text-sm">
+                            <option disabled selected>Select Staff Name</option>
+                        </select>
+                        <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </div>
+                    </div>
+
+                    <div class="relative group ring-4 ring-blue-500/5 rounded-[1.5rem]">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        </span>
+                        <input type="password" placeholder="Enter Password" class="w-full bg-white border-2 border-blue-600 rounded-[1.5rem] pl-14 pr-12 py-5 outline-none text-slate-700 font-bold placeholder:font-medium placeholder:text-slate-300 text-sm">
+                        <span class="absolute right-5 top-1/2 -translate-y-1/2 text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" /></svg>
+                        </span>
+                    </div>
+
+                    <div class="pt-6">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-5 rounded-[1.5rem] shadow-xl shadow-blue-500/40 transition-all active:scale-[0.97] flex items-center justify-center gap-3 text-lg">
+                            <span>Login to Dashboard</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </button>
                     </div>
                 </form>
-            </div>
-            
-            <div class="bg-slate-50 p-4 border-t border-slate-100">
-                <p class="text-center text-[10px] text-slate-400 uppercase tracking-tighter">
-                    Secure 256-bit Encrypted Session
-                </p>
+
+                <div class="mt-12 flex items-center justify-center gap-2 text-[10px] font-extrabold text-slate-300 uppercase tracking-[0.3em]">
+                    <div class="h-px w-8 bg-slate-100"></div>
+                    <span>Secure Login Session</span>
+                    <div class="h-px w-8 bg-slate-100"></div>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer class="py-6 border-t border-slate-200 bg-white">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
-            <p>© 2026 Jamal Mohamed College (Autonomous). All Rights Reserved.</p>
-            <p class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                System Status: Operational
-            </p>
-            <p class="font-medium">Developed & Maintained by <span class="text-jmc-green font-bold">ERP Cell</span></p>
-        </div>
-    </footer>
+    <div class="absolute bottom-6 w-full text-center text-white/40 text-[10px] font-extrabold uppercase tracking-[0.4em] flex items-center justify-center gap-3">
+        <span class="text-yellow-300/60">< /></span> Developed by Kesavan
+    </div>
+</div>
 
-</body>
-</html>
+<style>
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(-3%); }
+        50% { transform: translateY(0); }
+    }
+    .animate-bounce-slow {
+        animation: bounce-slow 5s infinite ease-in-out;
+    }
+</style>
 {% endblock %}
