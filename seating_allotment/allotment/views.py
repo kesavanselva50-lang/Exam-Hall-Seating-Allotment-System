@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Exam, Student, ExamHall, SeatingAllotment, Department
-from .utils import generate_seating_for_exam
+from .utils import generate_auto_mixed_pg_seating
 from django.shortcuts import get_object_or_404
 
 def dashboard(request):
@@ -15,14 +15,31 @@ def dashboard(request):
     return render(request, 'allotment/dashboard.html', context)
 
 
-def generate_all_allotments(request):
-    exams = Exam.objects.all()
+def generate_pg_mixed_allotments(request):
+    # Clear previous allotments ONCE
+    SeatingAllotment.objects.all().delete()
 
+    exams = Exam.objects.order_by('exam_date', 'session')
+    halls = list(ExamHall.objects.order_by('hall_no'))
+
+    exam_groups = {}
+
+    # Group exams by date + session
     for exam in exams:
-        SeatingAllotment.objects.filter(exam=exam).delete()
-        generate_seating_for_exam(exam)
+        key = (exam.exam_date, exam.session)
+        exam_groups.setdefault(key, []).append(exam)
+
+    # Run seating per date + session
+    for (exam_date, session), grouped_exams in exam_groups.items():
+        generate_auto_mixed_pg_seating(grouped_exams, halls)
 
     return redirect('dashboard')
+
+
+
+
+
+
 
 def student_page(request):
     students = Student.objects.all()

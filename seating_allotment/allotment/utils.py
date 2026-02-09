@@ -1,32 +1,46 @@
-from .models import Student, ExamHall, SeatingAllotment
+import random
+from itertools import cycle
+from .models import Student, SeatingAllotment
 
-def generate_seating_for_exam(exam):
+def generate_auto_mixed_pg_seating(exams, halls):
+    # delete previous allotments for these exams
+    SeatingAllotment.objects.filter(exam__in=exams).delete()
 
-    # ❌ Clear previous allotments for THIS exam only
-    SeatingAllotment.objects.filter(exam=exam).delete()
+    exam_students = {}
 
-    students = list(
-        Student.objects.filter(
-            department=exam.subject.department,
-            semester=exam.subject.semester
-        ).order_by('reg_no')
-    )
+    for exam in exams:
+        students = list(
+            Student.objects.filter(
+                department=exam.subject.department,
+                semester=exam.subject.semester
+            ).order_by('reg_no')
+        )
+        random.shuffle(students)
+        exam_students[exam] = students
 
-    halls = ExamHall.objects.all().order_by('hall_no')
+    hall_index = 0
+    seat_no = 1
+    exam_cycle = cycle(exams)
 
-    student_index = 0
+    while hall_index < len(halls):
+        hall = halls[hall_index]
+        exam = next(exam_cycle)
 
-    for hall in halls:
-        for seat_no in range(1, hall.total_seats + 1):
-
-            if student_index >= len(students):
-                return  # ✅ stop when students end
+        if exam_students[exam]:
+            student = exam_students[exam].pop(0)
 
             SeatingAllotment.objects.create(
-                student=students[student_index],
+                student=student,
                 exam=exam,
                 hall=hall,
                 seat_number=seat_no
             )
 
-            student_index += 1  # ✅ move to next student
+            seat_no += 1
+
+            if seat_no > hall.total_seats:
+                hall_index += 1
+                seat_no = 1
+
+        if all(len(students) == 0 for students in exam_students.values()):
+            break

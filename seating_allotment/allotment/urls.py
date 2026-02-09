@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import dashboard, generate_all_allotments, student_page
+from .views import dashboard, student_page, generate_pg_mixed_allotments
 
 urlpatterns = [
         path('', dashboard, name='dashboard'),
-        path('generate-allotment/', generate_all_allotments, name='generate_allotment'),
+        path('generate-allotment/', generate_pg_mixed_allotments, name='generate_pg_mixed_allotments'),
         path("students/", student_page, name="student_page"),
         path("dashboard/", dashboard, name="dashboard"),
 ]
