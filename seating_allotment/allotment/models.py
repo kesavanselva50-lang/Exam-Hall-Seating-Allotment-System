@@ -15,6 +15,14 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.reg_no} -{self.name}"
     
+class Staff(models.Model):
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name    
+    
 class Subject(models.Model):
     subject_name = models.CharField(max_length=100)
     subject_code = models.CharField(max_length=20, unique=True)

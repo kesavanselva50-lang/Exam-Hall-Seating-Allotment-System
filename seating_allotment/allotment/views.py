@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Exam, Student, ExamHall, SeatingAllotment, Department
+from .models import Exam, Student, ExamHall, SeatingAllotment, Department,Staff
 from .utils import generate_auto_mixed_pg_seating
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
+
+def dashboard(request):
+    if "staff_id" not in request.session:
+        return redirect("staff_login")
+
+    return render(request, "dashboard.html")
 
 def dashboard(request):
     context = {
@@ -16,7 +23,6 @@ def dashboard(request):
 
 
 def generate_pg_mixed_allotments(request):
-    # Clear previous allotments ONCE
     SeatingAllotment.objects.all().delete()
 
     exams = Exam.objects.order_by('exam_date', 'session')
@@ -24,12 +30,12 @@ def generate_pg_mixed_allotments(request):
 
     exam_groups = {}
 
-    # Group exams by date + session
+  
     for exam in exams:
         key = (exam.exam_date, exam.session)
         exam_groups.setdefault(key, []).append(exam)
 
-    # Run seating per date + session
+
     for (exam_date, session), grouped_exams in exam_groups.items():
         generate_auto_mixed_pg_seating(grouped_exams, halls)
 
@@ -79,4 +85,32 @@ def student_page(request):
         "students": students,
         "departments": departments,
         "edit_student": edit_student
+    })
+
+
+
+
+
+
+def staff_login(request):
+    departments = Department.objects.all()
+
+    if request.method == "POST":
+        dept_id = request.POST.get("department")
+        staff_id = request.POST.get("staff")
+        password = request.POST.get("password")
+
+        try:
+            staff = Staff.objects.get(id=staff_id, department_id=dept_id)
+            if staff.password == password: 
+                request.session["staff_id"] = staff.id
+                request.session["staff_name"] = staff.name
+                return redirect("staff_dashboard")
+            else:
+                messages.error(request, "Invalid password")
+        except Staff.DoesNotExist:
+            messages.error(request, "Invalid staff details")
+
+    return render(request, "staff_login.html", {
+        "departments": departments
     })
