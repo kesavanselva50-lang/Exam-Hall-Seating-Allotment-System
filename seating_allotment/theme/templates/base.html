@@ -4,70 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Seat Matrix{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            letter-spacing: -0.01em;
+        }
+        /* Custom Scrollbar for Sidebar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        
+        /* Active State with subtle glow */
         .sidebar-active { 
-            background: #004d26; 
+            background: linear-gradient(135deg, #059669 0%, #065f46 100%); 
             color: white !important; 
-            box-shadow: 0 10px 15px -3px rgba(0, 77, 38, 0.3); 
+            box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.4);
+        }
+        
+        .glass-profile {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
 
-<body class="bg-[#f8fafc]">
+<body class="bg-[#f8fafc] text-slate-900">
     <div class="flex h-screen overflow-hidden">
         
-        <aside class="w-72 bg-[#0f172a] text-slate-400 flex flex-col shrink-0 z-20 shadow-2xl">
+        <aside class="w-72 bg-[#020617] text-slate-400 flex flex-col shrink-0 z-20 border-r border-slate-800/50">
             <div class="p-8">
-                <div class="flex items-center gap-4">
-                    <div class="w-11 h-11 bg-[#004d26] rounded-xl flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-900/40">J</div>
-                    <h2 class="text-xl font-extrabold text-white tracking-tighter uppercase"> EXAM PORTAL</h2>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div>
+                        
+                        <h2 class="text-2xl font-black text-white leading-none tracking-tighter">ONE<span class="text-emerald-500">CLICK</span></h2>
+                        
+                    </div>
                 </div>
             </div>
             
-            <nav class="flex-grow px-6 space-y-1.5 overflow-y-auto mt-4">
-                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4 px-2">Main Navigation</p>
+            <nav class="flex-grow px-4 space-y-1 custom-scrollbar overflow-y-auto">
+                <p class="text-[10px] font-black text-slate-600 uppercase tracking-[0.25em] mb-4 mt-6 px-4">Management</p>
                 
-                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white sidebar-active">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
-                    <span class="font-semibold text-sm">Dashboard</span>
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:text-white hover:bg-white/5 group sidebar-active">
+                    <svg class="w-5 h-5 opacity-70 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    <span class="font-bold text-sm">Dashboard</span>
                 </a>
 
-                <a href="{% url 'student_page' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white hover:bg-slate-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <span class="font-semibold text-sm">Students</span>
+                <a href="{% url 'seating_overview' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:text-white hover:bg-white/5 group">
+                    <svg class="w-5 h-5 opacity-70 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    <span class="font-bold text-sm">Allotments</span>
                 </a>
 
-                <a href="/halls" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white hover:bg-slate-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                    <span class="font-semibold text-sm">Exam Halls</span>
+                <a href="{% url 'student_page' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:text-white hover:bg-white/5 group">
+                    <svg class="w-5 h-5 opacity-70 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <span class="font-bold text-sm">Students</span>
+                </a>
+
+                <a href="/halls" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:text-white hover:bg-white/5 group">
+                    <svg class="w-5 h-5 opacity-70 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <span class="font-bold text-sm">Exam Halls</span>
                 </a>
 
                 <div class="pt-8">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] px-2 mb-4">Actions</p>
-                    <a href="/allotment" class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-300 group">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        <span class="font-bold text-xs uppercase tracking-wider">Run Allotment</span>
+                    <p class="text-[10px] font-black text-slate-600 uppercase tracking-[0.25em] mb-4 px-4">Resources</p>
+                    <a href="{% url 'subjects' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all hover:text-white hover:bg-white/5 group">
+                        <div class="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-emerald-500 transition-colors"></div>
+                        <span class="font-semibold text-sm">Subjects</span>
+                    </a>
+                    <a href="{% url 'departments' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all hover:text-white hover:bg-white/5 group">
+                        <div class="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-emerald-500 transition-colors"></div>
+                        <span class="font-semibold text-sm">Departments</span>
+                    </a>
+                    <a href="{% url 'master_upload' %}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all hover:text-white hover:bg-white/5 group">
+                        <div class="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-emerald-500 transition-colors"></div>
+                        <span class="font-semibold text-sm">Master Upload</span>
                     </a>
                 </div>
             </nav>
 
-            <div class="p-6 border-t border-slate-800/50">
-                <div class="flex items-center gap-3 bg-slate-800/40 p-3 rounded-2xl border border-slate-700/50">
-                    <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs uppercase">
-                        {{ user.username.0|default:"A" }}
+            <div class="p-4">
+                <div class="glass-profile p-4 rounded-2xl flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                            {{ user.username.0|upper|default:"A" }}
+                        </div>
+                        <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-[#020617] rounded-full"></div>
                     </div>
                     <div class="flex-grow min-w-0">
-                        <p class="text-xs font-bold text-white truncate">{{ user.username|default:"Admin User" }}</p>
-                        <p class="text-[10px] text-slate-500 truncate">Controller Office</p>
+                        <p class="text-xs font-bold text-white truncate">{{ user.username|default:"Admin" }}</p>
+                        <p class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">System Root</p>
                     </div>
+                    <a href="#" class="text-slate-500 hover:text-rose-400 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </a>
                 </div>
             </div>
         </aside>
-        <main class="flex-grow overflow-y-auto">
-            <div class="p-10">
+
+        <main class="flex-grow overflow-y-auto custom-scrollbar">
+            <div class="p-8 md:p-12 lg:p-16 max-w-[1600px] mx-auto">
                 {% block content %}{% endblock %}
             </div>
         </main>

@@ -1,11 +1,17 @@
 from django.urls import path
-from .views import dashboard, staff_login, student_page, generate_pg_mixed_allotments
-
+from .views import *
 urlpatterns = [
-        path('', dashboard, name='dashboard'),
-        path('generate-allotment/', generate_pg_mixed_allotments, name='generate_pg_mixed_allotments'),
-        path("students/", student_page, name="student_page"),
-        path("staff-login/", staff_login, name="staff_login"),
-        path("dashboard/", dashboard, name="dashboard"),
+    path('', dashboard, name='dashboard'),
+
+    path('generate-allotment/', generate_pg_mixed_allotments, name='generate_allotment'),
+
+    path("students/", student_page, name="student_page"),
+    path("halls/", hall_page, name="hall_page"),
+    path("subjects/", subjects_page, name="subjects"),
+    path("subjects/delete/<int:pk>/", delete_subject, name="delete_subject"),
+    path("departments/", departments_page, name="departments"),
+    path("departments/delete/<int:pk>/", delete_department, name="delete_department"),
+    path("master-upload/", master_upload, name="master_upload"),
+    path("allotments/", seating_overview, name="seating_overview"),
+
 ]
-    

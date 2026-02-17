@@ -5,7 +5,9 @@ from .models import (
     Subject,
     Exam,
     ExamHall,
-    SeatingAllotment
+    SeatingAllotment,
+    Staff,
+    Building
 )
 
 @admin.register(Department)
@@ -43,3 +45,13 @@ class SeatingAllotmentAdmin(admin.ModelAdmin):
     list_display = ('exam', 'student', 'hall', 'seat_number')
     list_filter = ('exam', 'hall')
     search_fields = ('student__reg_no',)
+
+@admin.register(Building)
+class BuildingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+
+class ExamHallAdmin(admin.ModelAdmin):
+    list_display = ('hall_no', 'building', 'total_seats')
+    list_filter = ('building',)

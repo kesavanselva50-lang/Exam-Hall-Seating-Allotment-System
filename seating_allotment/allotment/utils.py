@@ -1,33 +1,35 @@
-import random
-from itertools import cycle
-from .models import Student, SeatingAllotment
+from .models import SeatingAllotment, Student
+
 
 def generate_auto_mixed_pg_seating(exams, halls):
-    # delete previous allotments for these exams
+
+    # Delete previous allotments for these exams
     SeatingAllotment.objects.filter(exam__in=exams).delete()
 
-    exam_students = {}
+    # Collect all students exam-wise in REG NO order
+    combined_students = []
 
     for exam in exams:
-        students = list(
-            Student.objects.filter(
-                department=exam.subject.department,
-                semester=exam.subject.semester
-            ).order_by('reg_no')
-        )
-        random.shuffle(students)
-        exam_students[exam] = students
+        students = Student.objects.filter(
+            department=exam.subject.department,
+            semester=exam.subject.semester
+        ).order_by('reg_no')  # 👈 VERY IMPORTANT
 
-    hall_index = 0
-    seat_no = 1
-    exam_cycle = cycle(exams)
+        for student in students:
+            combined_students.append((student, exam))
 
-    while hall_index < len(halls):
-        hall = halls[hall_index]
-        exam = next(exam_cycle)
+    student_index = 0
+    total_students = len(combined_students)
 
-        if exam_students[exam]:
-            student = exam_students[exam].pop(0)
+    # Fill halls one by one
+    for hall in halls:
+
+        for seat_no in range(1, hall.total_seats + 1):
+
+            if student_index >= total_students:
+                return  # All students allocated
+
+            student, exam = combined_students[student_index]
 
             SeatingAllotment.objects.create(
                 student=student,
@@ -36,11 +38,4 @@ def generate_auto_mixed_pg_seating(exams, halls):
                 seat_number=seat_no
             )
 
-            seat_no += 1
-
-            if seat_no > hall.total_seats:
-                hall_index += 1
-                seat_no = 1
-
-        if all(len(students) == 0 for students in exam_students.values()):
-            break
+            student_index += 1
