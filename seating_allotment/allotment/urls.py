@@ -13,5 +13,7 @@ urlpatterns = [
     path("departments/delete/<int:pk>/", delete_department, name="delete_department"),
     path("master-upload/", master_upload, name="master_upload"),
     path("allotments/", seating_overview, name="seating_overview"),
+    path('allotments/export-pdf/', export_master_pdf, name='export_master_pdf'),
+
 
 ]

@@ -1,3 +1,4 @@
+from django.db.models import Case, When, IntegerField
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
@@ -5,6 +6,33 @@ from .models import *
 from .utils import generate_auto_mixed_pg_seating
 import openpyxl
 from django.db import transaction
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.http import HttpResponse
+from django.utils.timezone import now
+
+def export_master_pdf(request):
+    allotments = SeatingAllotment.objects.all().order_by(
+        'hall__hall_no',
+        'seat_number'
+    )
+
+    html_string = render_to_string(
+        'allotments/master_list_pdf.html',
+        {
+            'allotments': allotments,
+            'now': now()
+        }
+    )
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="Seating_Master_List.pdf"'
+
+    return response
+
 
 
 # ==========================================
@@ -88,10 +116,25 @@ def generate_pg_mixed_allotments(request):
 # STUDENT PAGE
 # ==========================================
 def student_page(request):
-    students = Student.objects.all()
+
+    query = request.GET.get("q", "").strip()
+
+    students = Student.objects.select_related("department")
+
+    if query:
+        students = students.filter(
+            Q(name__icontains=query) |
+            Q(reg_no__icontains=query) |
+            Q(department__name__icontains=query) |
+            Q(semester__icontains=query)
+        )
+
+    students = students.order_by("reg_no")
+
     departments = Department.objects.all()
     edit_student = None
 
+    # ➕ Add Student
     if request.method == "POST" and "add_student" in request.POST:
         Student.objects.create(
             name=request.POST["name"],
@@ -101,6 +144,7 @@ def student_page(request):
         )
         return redirect("student_page")
 
+    # ✏ Update Student
     if request.method == "POST" and "update_student" in request.POST:
         student = get_object_or_404(Student, id=request.POST["student_id"])
         student.name = request.POST["name"]
@@ -110,9 +154,11 @@ def student_page(request):
         student.save()
         return redirect("student_page")
 
+    # 📝 Edit Mode
     if request.GET.get("edit"):
         edit_student = get_object_or_404(Student, id=request.GET["edit"])
 
+    # 🗑 Delete
     if request.GET.get("delete"):
         Student.objects.filter(id=request.GET["delete"]).delete()
         return redirect("student_page")
@@ -120,15 +166,28 @@ def student_page(request):
     return render(request, "allotment/student_page.html", {
         "students": students,
         "departments": departments,
-        "edit_student": edit_student
+        "edit_student": edit_student,
     })
 
 
 # ==========================================
 # HALL PAGE
 # ==========================================
+
 def hall_page(request):
-    halls = ExamHall.objects.all().order_by('hall_no')
+
+    query = request.GET.get("q")
+
+    halls = ExamHall.objects.select_related("building")
+
+    if query:
+        halls = halls.filter(
+            Q(hall_no__icontains=query) |
+            Q(building__name__icontains=query)
+        )
+
+    halls = halls.order_by('hall_no')
+
     buildings = Building.objects.all()
     edit_hall = None
 
@@ -163,13 +222,15 @@ def hall_page(request):
     })
 
 
-# ==========================================
-# SUBJECT + EXAM PAGE
-# ==========================================
 def subjects_page(request):
+
+    # -----------------------------
+    # CREATE SUBJECT + EXAM
+    # -----------------------------
     if request.method == "POST":
-        subject_code = request.POST.get("subject_code")
-        subject_name = request.POST.get("subject_name")
+
+        subject_code = request.POST.get("subject_code").strip()
+        subject_name = request.POST.get("subject_name").strip()
         department_id = request.POST.get("department")
         semester = request.POST.get("semester")
         exam_date = request.POST.get("exam_date")
@@ -177,16 +238,19 @@ def subjects_page(request):
 
         department = get_object_or_404(Department, id=department_id)
 
-        subject = Subject.objects.create(
+        # Prevent duplicate crash
+        subject, created = Subject.objects.update_or_create(
             subject_code=subject_code,
-            subject_name=subject_name,
-            department=department,
-            semester=semester
+            defaults={
+                "subject_name": subject_name,
+                "department": department,
+                "semester": semester
+            }
         )
 
-        # Automatically create exam
+        # Create exam only if not already existing
         if exam_date and session:
-            Exam.objects.create(
+            Exam.objects.get_or_create(
                 subject=subject,
                 exam_date=exam_date,
                 session=session
@@ -194,19 +258,39 @@ def subjects_page(request):
 
         return redirect("subjects")
 
-    subjects = Subject.objects.select_related("department").all()
+    # -----------------------------
+    # SEARCH FUNCTIONALITY
+    # -----------------------------
+    query = request.GET.get("search")
+
+
+    subjects = Subject.objects.select_related("department")
+
+    if query:
+        subjects = subjects.filter(
+            Q(subject_name__icontains=query) |
+            Q(subject_code__icontains=query) |
+            Q(department__name__icontains=query) |
+            Q(semester__icontains=query)
+        )
+
+    subjects = subjects.order_by("subject_code")
+
     departments = Department.objects.all()
 
     return render(request, "allotment/Subjects.html", {
-        "subjects": subjects,
-        "departments": departments,
-    })
+    "subjects": subjects,
+    "departments": departments,
+    "search_query": query
+})
 
 
 def delete_subject(request, pk):
     subject = get_object_or_404(Subject, pk=pk)
     subject.delete()
     return redirect("subjects")
+
+
 
 
 # ==========================================
@@ -382,14 +466,91 @@ def master_upload(request):
     return render(request, "allotment/master_upload.html")
 
 
+
+
 def seating_overview(request):
+
+    query = request.GET.get("q")
+    hall_filter = request.GET.get("hall")
+    session_filter = request.GET.get("session")
+
     allotments = SeatingAllotment.objects.select_related(
         'student',
+        'student__department',
         'exam',
+        'exam__subject',
         'hall',
         'hall__building'
-    ).order_by('exam__exam_date', 'exam__session', 'hall__hall_no', 'seat_number')
+    )
+
+    # 🔎 SEARCH FILTER
+    if query:
+        allotments = allotments.filter(
+            Q(student__name__icontains=query) |
+            Q(student__reg_no__icontains=query) |
+            Q(student__department__name__icontains=query) |
+            Q(exam__subject__subject_name__icontains=query)
+        )
+
+    # 🏢 HALL FILTER
+    if hall_filter and hall_filter != "all":
+        allotments = allotments.filter(hall__id=hall_filter)
+
+    # ⏰ SESSION FILTER
+    if session_filter and session_filter != "all":
+        allotments = allotments.filter(exam__session=session_filter)
+
+    allotments = allotments.order_by(
+        'exam__exam_date',
+        'exam__session',
+        'hall__hall_no',
+        'seat_number'
+    )
+
+    from .models import ExamHall
+    halls = ExamHall.objects.all()
 
     return render(request, "allotment/seating_overview.html", {
-        "allotments": allotments
+        "allotments": allotments,
+        "halls": halls
     })
+
+
+
+def export_master_pdf(request):
+
+    allotments = SeatingAllotment.objects.select_related(
+        'student',
+        'student__department',
+        'exam',
+        'exam__subject',
+        'hall'
+    ).annotate(
+        session_order=Case(
+            When(exam__session='FN', then=0),
+            When(exam__session='AN', then=1),
+            output_field=IntegerField()
+        )
+    ).order_by(
+        'exam__exam_date',
+        'session_order',
+        'hall__hall_no',
+        'seat_number',
+        'student__department__name'
+    )
+
+    html_string = render_to_string(
+        'allotment/print.html',
+        {
+            'allotments': allotments,
+            'now': now()
+        }
+    )
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Seating_Master_List.pdf"'
+
+    return response

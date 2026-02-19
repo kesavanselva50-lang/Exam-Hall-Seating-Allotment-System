@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+
+        .exam-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            text-align: center;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Seating Master List</h1>
+<div class="subtitle">
+    ONECLICK Examination Management System
+</div>
+
+<div class="exam-info">
+    Exam: {{ allotments.0.exam.subject.name }} |
+    Date: {{ allotments.0.exam.date }}
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Reg No</th>
+            <th>Department</th>
+            <th>Exam</th>
+            <th>Exam Date</th>
+            <th>Session</th>
+            <th>Hall</th>
+            <th>Seat No</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for allotment in allotments %}
+        <tr>
+            <td>{{ allotment.student.reg_no }}</td>
+            <td>{{ allotment.student.department.name }}</td>
+            <td>{{ allotment.exam.subject.subject_name }}</td>
+            <td>{{ allotment.exam.exam_date }}</td>
+            <td>{{ allotment.exam.get_session_display }}</td>
+            <td>{{ allotment.hall.hall_no }}</td>
+            <td>{{ allotment.seat_number }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+<div class="footer">
+    Generated on {{ now }}
+</div>
+
+</body>
+</html>
