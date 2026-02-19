@@ -6,13 +6,13 @@
     
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
-            <h1 class="text-3xl font-black text-slate-900 tracking-tight uppercase">Organizational Structure</h1>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight uppercase">Department Management</h1>
             <p class="text-slate-500 font-medium">Manage and synchronize academic departments within the seating infrastructure.</p>
         </div>
 
         <div class="flex items-center gap-4 bg-white border border-slate-200 px-6 py-4 rounded-[2rem] shadow-xl shadow-slate-200/50">
             <div class="text-center border-r border-slate-100 pr-6">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Active Nodes</p>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Departments</p>
                 <p class="text-3xl font-black text-indigo-600">{{ departments|length }}</p>
             </div>
             <div class="pl-2">
@@ -39,8 +39,7 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-black tracking-tight">Register Unit</h2>
-                            <p class="text-indigo-100/60 text-[10px] font-black uppercase tracking-[0.2em]">New Organizational Node</p>
+                            <h2 class="text-xl font-black tracking-tight">Add Department</h2>
                         </div>
                     </div>
                 </div>
@@ -49,8 +48,8 @@
                     {% csrf_token %}
                     
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Department Nomenclature</label>
-                        <input type="text" name="name" placeholder="e.g. Artificial Intelligence" 
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Department Name</label>
+                        <input type="text" name="name" placeholder="e.g. Computer Science" 
                                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-sm font-black focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none" required>
                     </div>
 
@@ -58,15 +57,12 @@
                         <button type="submit" 
                                 class="w-full py-4 bg-slate-900 text-white font-black rounded-2xl shadow-xl shadow-slate-200 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                            INITIALIZE DEPARTMENT
+                                Register Department
                         </button>
                     </div>
                 </form>
                 
                 <div class="p-6 bg-slate-50 border-t border-slate-100">
-                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                        Note: Deleting a department will cascade affects to all linked subjects and seating arrangements.
-                    </p>
                 </div>
             </div>
         </div>
@@ -74,7 +70,7 @@
         <div class="xl:col-span-8">
             <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
                 <div class="px-8 py-7 border-b border-slate-50 bg-slate-50/30 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <h2 class="text-lg font-black text-slate-800 tracking-tight italic uppercase">Department Directory</h2>
+                    <h2 class="text-lg font-black text-slate-800 tracking-tight  uppercase">Department Directory</h2>
               <form method="get" class="relative w-full md:w-96">
 
     <!-- Search Icon -->
@@ -113,9 +109,9 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] bg-white">
-                                <th class="px-8 py-6">Identity & UID</th>
-                                <th class="px-6 py-6">Verification Status</th>
-                                <th class="px-8 py-6 text-right">System Actions</th>
+                                <th class="px-8 py-6">Department & UID</th>
+                                <th class="px-6 py-6">Status</th>
+                                <th class="px-8 py-6 text-right">Actions</th>
                             </tr>
                         </thead>
 

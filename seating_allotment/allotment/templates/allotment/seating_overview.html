@@ -9,6 +9,13 @@
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Seating Overview</h1>
             <p class="text-slate-500 text-sm font-medium">Managing {{ allotments|length }} active student allocations across campus.</p>
         </div>
+        <div class="flex gap-3">
+                <a href="{% url 'generate_allotment' %}" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm shadow-indigo-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    Generate Allotment
+                </a>
+            </div>
+        
         <div class="flex items-center gap-3">
             <a href="{% url 'export_master_pdf' %}"
                class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-emerald-200/60 hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center gap-2">
@@ -58,8 +65,8 @@
 
     <!-- Session Filter -->
     <select name="session" onchange="this.form.submit()"
-            class="pl-12 pr-4 py-3 w-full text-xs font-bold bg-white border-slate-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none shadow-sm">
-        <option value="all">All Sessions</option>
+            class="pl-12 pr-4 py-2 w- text-xs font-bold bg-white border-slate-400 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none shadow-sm">
+        <option value="all">All Session</option>
         <option value="FN" {% if request.GET.session == "FN" %}selected{% endif %}>Forenoon</option>
         <option value="AN" {% if request.GET.session == "AN" %}selected{% endif %}>Afternoon</option>
     </select>
@@ -73,9 +80,9 @@
                 <thead>
                     <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] bg-white">
                         <th class="px-8 py-5">Student Details</th>
-                        <th class="px-6 py-5">Venue & Location</th>
+                        <th class="px-6 py-5">Hall & Block</th>
                         <th class="px-6 py-5 text-center">Seat ID</th>
-                        <th class="px-6 py-5">Exam Subject</th>
+                        <th class="px-6 py-5">Exam & Session</th>
                         <th class="px-8 py-5 text-right">Timing</th>
                     </tr>
                 </thead>

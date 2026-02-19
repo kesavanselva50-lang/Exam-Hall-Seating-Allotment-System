@@ -43,8 +43,7 @@
                             {% endif %}
                         </div>
                         <div>
-                            <h2 class="text-xl font-black tracking-tight">{% if edit_hall %}Update Venue{% else %}New Location{% endif %}</h2>
-                            <p class="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">Venue Allotment Node</p>
+                            <h2 class="text-xl font-black tracking-tight">{% if edit_hall %}Update Hall{% else %}Add Hall{% endif %}</h2>
                         </div>
                     </div>
                 </div>
@@ -90,7 +89,7 @@
                     <div class="pt-6 space-y-3">
                         <button type="submit" name="{% if edit_hall %}update_hall{% else %}add_hall{% endif %}"
                                 class="w-full py-4 {% if edit_hall %}bg-indigo-600 shadow-indigo-200{% else %}bg-slate-900 shadow-slate-200{% endif %} text-white font-black rounded-2xl shadow-xl hover:-translate-y-1 active:scale-95 transition-all">
-                            {% if edit_hall %}Commit Changes{% else %}Register Venue{% endif %}
+                            {% if edit_hall %}Commit Changes{% else %}Register Hall{% endif %}
                         </button>
                         {% if edit_hall %}
                         <a href="{% url 'hall_page' %}" class="block w-full py-4 bg-slate-100 text-slate-500 text-center text-sm font-black rounded-2xl hover:bg-slate-200 transition-all">
@@ -105,7 +104,7 @@
         <div class="xl:col-span-8">
             <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
                 <div class="px-8 py-7 border-b border-slate-50 bg-slate-50/30 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <h2 class="text-lg font-black text-slate-800 tracking-tight italic">Hall Directory Matrix</h2>
+                    <h2 class="text-lg font-black text-slate-800 tracking-tight ">Hall Directory Matrix</h2>
                     <form method="get" class="relative w-full md:w-80">
     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
         🔍
@@ -124,9 +123,9 @@
                     <table class="w-full text-left">
                         <thead>
                             <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] bg-white">
-                                <th class="px-8 py-6">Venue Designation</th>
+                                <th class="px-8 py-6">Hall.No</th>
                                 <th class="px-6 py-6">Block / Location</th>
-                                <th class="px-6 py-6 text-center">Load Capacity</th>
+                                <th class="px-6 py-6 text-center">Seat Capacity</th>
                                 <th class="px-8 py-6 text-right">Operations</th>
                             </tr>
                         </thead>

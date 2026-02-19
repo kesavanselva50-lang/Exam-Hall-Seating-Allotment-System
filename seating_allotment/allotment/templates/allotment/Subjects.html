@@ -12,7 +12,7 @@
 
         <div class="flex items-center gap-4 bg-white border border-slate-200 px-6 py-4 rounded-[2rem] shadow-xl shadow-slate-200/50">
             <div class="text-center border-r border-slate-100 pr-6">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Catalog Size</p>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Subjects</p>
                 <p class="text-3xl font-black text-indigo-600">{{ subjects|length }}</p>
             </div>
             <div class="pl-2">
@@ -39,8 +39,7 @@
                             <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-black tracking-tight">Register Subject</h2>
-                            <p class="text-indigo-300/60 text-[10px] font-black uppercase tracking-[0.2em]">Academic Node Entry</p>
+                            <h2 class="text-xl font-black tracking-tight">Add Subject</h2>
                         </div>
                     </div>
                 </div>
@@ -49,13 +48,13 @@
                     {% csrf_token %}
                     
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Unique Subject Code</label>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Subject Code</label>
                         <input type="text" name="subject_code" placeholder="CS8501" 
                                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-sm font-black focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none font-mono tracking-widest uppercase" required>
                     </div>
 
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Nomenclature</label>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Subject Name</label>
                         <input type="text" name="subject_name" placeholder="Theory of Computation" 
                                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-sm font-black focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none" required>
                     </div>
@@ -84,7 +83,7 @@
                                    class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-xs font-black focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none" required>
                         </div>
                         <div class="space-y-1.5">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Slot</label>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Session</label>
                             <select name="session" class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-xs font-black focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none appearance-none cursor-pointer" required>
                                 <option value="FN">Forenoon (FN)</option>
                                 <option value="AN">Afternoon (AN)</option>
@@ -106,7 +105,7 @@
         <div class="xl:col-span-8">
             <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
                 <div class="px-8 py-7 border-b border-slate-50 bg-slate-50/30 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <h2 class="text-lg font-black text-slate-800 tracking-tight italic uppercase">Academic Catalog Matrix</h2>
+                    <h2 class="text-lg font-black text-slate-800 tracking-tight  uppercase">Subject List</h2>
                   <form method="get" class="relative w-full md:w-80">
     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,10 +130,10 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] bg-white">
-                                <th class="px-8 py-6">Identity & nomenclature</th>
+                                <th class="px-8 py-6">Subject & Sub-Code </th>
                                 <th class="px-6 py-6">Department</th>
                                 <th class="px-6 py-6 text-center">SEM</th>
-                                <th class="px-8 py-6 text-right">Operational Control</th>
+                                <th class="px-8 py-6 text-right">Operations</th>
                             </tr>
                         </thead>
 
