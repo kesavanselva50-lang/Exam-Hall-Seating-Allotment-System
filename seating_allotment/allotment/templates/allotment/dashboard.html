@@ -1,165 +1,164 @@
 {% extends "base.html" %}
-{% block title %}Dashboard | SEAT MATRIX CORE{% endblock %}
+{% block title %}Dashboard | ONE CLICK{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-[#fafafa] font-sans text-slate-900 antialiased">
+<div class="antialiased">
     
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-3">
-        <div class="max-w-[1400px] mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-6">
-                <div class="bg-slate-900 text-white p-1.5 rounded-md flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
-                </div>
-                <span class="text-sm font-bold tracking-tight text-slate-800 uppercase">ONECLICK SEATING MANAGEMENT SYSTEM</span>
-                <div class="h-4 w-px bg-slate-200"></div>
-                <nav class="hidden md:flex gap-5 text-xs font-semibold text-slate-500">
-                </nav>
+    <nav class="mb-10 bg-white border border-slate-200 px-6 py-4 rounded-2xl shadow-sm flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="bg-slate-900 text-white p-2 rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
             </div>
-            <div class="flex items-center gap-4">
-                <span class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100 uppercase tracking-wider">
-                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Live System
-                </span>
-            </div>
+            <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase">OneClick Seating Management System</span>
         </div>
+        <span class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-600 border border-emerald-100 uppercase tracking-wider">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Live System
+        </span>
     </nav>
 
-    <main class="max-w-[1400px] mx-auto px-6 py-10 lg:py-14">
-        
-        <header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-                <h1 class="text-3xl font-bold tracking-tight text-slate-900">System Overview</h1>
-                <p class="text-slate-500 text-sm mt-1">Global management and seat allotment engine.</p>
-            </div>
-            <div class="flex gap-3">
-                <a href="{% url 'generate_allotment' %}" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm shadow-indigo-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    Run Allocation Engine
-                </a>
-            </div>
-        </header>
+    <header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+            <h1 class="text-4xl font-black tracking-tight text-slate-900">System Overview</h1>
+            <p class="text-slate-500 text-sm mt-1 font-medium">Global management and seat allotment engine.</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="{% url 'generate_allotment' %}" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-200/50">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                Run Allocation Engine
+            </a>
+        </div>
+    </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="p-2 bg-slate-50 rounded-lg border border-slate-100 text-slate-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                    </div>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Students</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-200 transition-colors">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-slate-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                 </div>
-                <p class="text-3xl font-bold text-slate-900">{{ student_count }}</p>
-                <p class="text-xs text-slate-500 mt-1">Total active registrations</p>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Students</span>
             </div>
+            <p class="text-4xl font-black text-slate-900">{{ student_count|default:"0" }}</p>
+            <p class="text-xs text-slate-500 mt-1 font-semibold">Total active registrations</p>
+        </div>
 
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="p-2 bg-slate-50 rounded-lg border border-slate-100 text-slate-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                    </div>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Exam Halls</span>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-200 transition-colors">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-slate-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                 </div>
-                <p class="text-3xl font-bold text-slate-900">{{ hall_count }}</p>
-                <p class="text-xs text-slate-500 mt-1">Operational examination halls</p>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Exam Halls</span>
             </div>
+            <p class="text-4xl font-black text-slate-900">{{ hall_count|default:"0" }}</p>
+            <p class="text-xs text-slate-500 mt-1 font-semibold">Operational halls</p>
+        </div>
 
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-4 text-slate-400">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-200 transition-colors">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-slate-500">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                    <span class="text-[10px] font-bold uppercase tracking-widest">Subjects</span>
                 </div>
-                <p class="text-3xl font-bold text-slate-900">{{ subject_count }}</p>
-                <p class="text-xs text-slate-500 mt-1">Registered unique subjects</p>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Subjects</span>
             </div>
+            <p class="text-4xl font-black text-slate-900">{{ subject_count|default:"0" }}</p>
+            <p class="text-xs text-slate-500 mt-1 font-semibold">Registered unique subjects</p>
+        </div>
 
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
-                {% if unallocated_students > 0 %}
-                <div class="flex items-center justify-between mb-4 text-rose-500">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span class="text-[10px] font-bold uppercase tracking-widest">Action Needed</span>
+        <div class="p-6 rounded-2xl border shadow-sm relative overflow-hidden {% if unallocated_students > 0 %}bg-rose-50 border-rose-200 text-rose-700{% else %}bg-emerald-50 border-emerald-200 text-emerald-700{% endif %}">
+            {% if unallocated_students > 0 %}
+                <div class="flex items-center justify-between mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Action Needed</span>
                 </div>
-                <p class="text-3xl font-bold text-rose-600">{{ unallocated_students }}</p>
-                <p class="text-xs text-rose-500/80 mt-1 font-medium italic">Pending Allocation</p>
-                {% else %}
-                <div class="flex items-center justify-between mb-4 text-emerald-500">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span class="text-[10px] font-bold uppercase tracking-widest">Optimized</span>
+                <p class="text-4xl font-black">{{ unallocated_students }}</p>
+                <p class="text-xs mt-1 font-bold italic opacity-80">Pending Allocation</p>
+            {% else %}
+                <div class="flex items-center justify-between mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Optimized</span>
                 </div>
-                <p class="text-3xl font-bold text-emerald-600">Seat Allotted</p>
-                <p class="text-xs text-emerald-500/80 mt-1 font-medium">100% Seat Occupancy</p>
-                {% endif %}
+                <p class="text-3xl font-black">Fully Allotted</p>
+                <p class="text-xs mt-1 font-bold opacity-80">100% Seat Occupancy</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <h3 class="text-base font-black text-slate-800">Session Distribution</h3>
+                <button class="text-[10px] font-bold text-emerald-600 hover:text-emerald-700 uppercase tracking-tighter">View Detailed Log</button>
+            </div>
+            <div class="divide-y divide-slate-100">
+                <div class="px-8 py-6 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="h-12 w-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center border border-orange-100 shadow-sm">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-black text-slate-800">Forenoon Session</p>
+                            <p class="text-xs text-slate-400 font-medium">Primary Allocation (AM)</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-2xl font-black text-slate-900">{{ fn_count|default:"0" }}</span>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase">Allocated</p>
+                    </div>
+                </div>
+
+                <div class="px-8 py-6 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="h-12 w-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center border border-indigo-100 shadow-sm">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-black text-slate-800">Afternoon Session</p>
+                            <p class="text-xs text-slate-400 font-medium">Secondary Allocation (PM)</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-2xl font-black text-slate-900">{{ an_count|default:"0" }}</span>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase">Allocated</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                    <h3 class="text-sm font-bold text-slate-800">Session Distribution</h3>
-                    <button class="text-[10px] font-bold text-indigo-600 uppercase tracking-tighter">View Detailed Log</button>
-                </div>
-                <div class="divide-y divide-slate-100">
-                    <div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50/80 transition-colors">
+        <div class="space-y-6">
+            <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl shadow-slate-300">
+                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-8">Resource Hub</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between group cursor-default">
                         <div class="flex items-center gap-4">
-                            <div class="h-10 w-10 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center border border-orange-100">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" /></svg>
+                            <div class="p-2.5 bg-slate-800 rounded-xl text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
                             </div>
-                            <div>
-                                <p class="text-sm font-bold text-slate-800">Forenoon Session</p>
-                                <p class="text-[11px] text-slate-400">Primary Allocation (AM)</p>
-                            </div>
+                            <span class="text-sm font-bold text-slate-300">Departments</span>
                         </div>
-                        <div class="text-right">
-                            <span class="text-lg font-bold text-slate-900">{{ fn_count }}</span>
-                            <p class="text-[10px] font-medium text-slate-400">Total Seats</p>
-                        </div>
+                        <span class="text-base font-black">{{ department_count|default:"0" }}</span>
                     </div>
 
-                    <div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50/80 transition-colors">
+                    <div class="flex items-center justify-between group cursor-default">
                         <div class="flex items-center gap-4">
-                            <div class="h-10 w-10 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center border border-indigo-100">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+                            <div class="p-2.5 bg-slate-800 rounded-xl text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
                             </div>
-                            <div>
-                                <p class="text-sm font-bold text-slate-800">Afternoon Session</p>
-                                <p class="text-[11px] text-slate-400">Secondary Allocation (PM)</p>
-                            </div>
+                            <span class="text-sm font-bold text-slate-300">Subjects</span>
                         </div>
-                        <div class="text-right">
-                            <span class="text-lg font-bold text-slate-900">{{ an_count }}</span>
-                            <p class="text-[10px] font-medium text-slate-400">Total Seats</p>
-                        </div>
+                        <span class="text-base font-black">{{ subject_count|default:"0" }}</span>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-800 flex justify-center">
+                        <a href="{% url 'departments' %}" class="text-[10px] font-black text-slate-500 hover:text-emerald-400 transition-colors uppercase tracking-widest">Manage Resources &rarr;</a>
                     </div>
                 </div>
-                
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-slate-900 rounded-xl p-6 text-white shadow-lg shadow-slate-200">
-                    <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">Core Statistics</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                                <span class="text-xs font-medium text-slate-300">Departments</span>
-                            </div>
-                            <span class="text-sm font-bold">{{ department_count }}</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                                <span class="text-xs font-medium text-slate-300">Registered Subjects</span>
-                            </div>
-                            <span class="text-sm font-bold">{{ subject_count }}</span>
-                        </div>
-                        <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
-                            
-                        </div>
-                    </div>
-                </div>
-
-                
             </div>
         </div>
-    </main>
+    </div>
 </div>
 {% endblock %}
