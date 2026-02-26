@@ -1,7 +1,6 @@
-from django.db.models import Case, When, IntegerField
+from django.db.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.db.models import Q
 from .models import *
 from .utils import generate_auto_mixed_pg_seating
 import openpyxl
@@ -10,6 +9,42 @@ from django.template.loader import render_to_string
 from weasyprint import HTML
 from django.http import HttpResponse
 from django.utils.timezone import now
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+import openpyxl
+from openpyxl import Workbook
+
+
+
+@never_cache
+def staff_logout(request):
+    logout(request)
+    request.session.flush()   # completely destroy session
+    response = redirect("login")
+    response.delete_cookie("sessionid")
+    return response
+
+@never_cache
+
+def staff_login(request):
+    if request.method == "POST":
+        staff_id = request.POST.get("staff_id")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=staff_id, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("dashboard")  # change if needed
+        else:
+            messages.error(request, "Invalid Staff ID or Password")
+
+    return render(request, "allotment/staff_login.html")
+
+@never_cache
+@login_required(login_url="login")
 
 def export_master_pdf(request):
     allotments = SeatingAllotment.objects.all().order_by(
@@ -38,8 +73,8 @@ def export_master_pdf(request):
 # ==========================================
 # DASHBOARD
 # ==========================================
-from django.db.models import Count
-
+@never_cache
+@login_required(login_url="login")
 def dashboard(request):
 
     student_count = Student.objects.count()
@@ -89,6 +124,8 @@ def dashboard(request):
 # ==========================================
 # GENERATE SEATING
 # ==========================================
+@never_cache
+@login_required(login_url="login")
 def generate_pg_mixed_allotments(request):
     SeatingAllotment.objects.all().delete()
 
@@ -115,6 +152,8 @@ def generate_pg_mixed_allotments(request):
 # ==========================================
 # STUDENT PAGE
 # ==========================================
+@never_cache
+@login_required(login_url="login")
 def student_page(request):
 
     query = request.GET.get("q", "").strip()
@@ -173,7 +212,8 @@ def student_page(request):
 # ==========================================
 # HALL PAGE
 # ==========================================
-
+@never_cache
+@login_required(login_url="login")
 def hall_page(request):
 
     query = request.GET.get("q")
@@ -221,7 +261,8 @@ def hall_page(request):
         "edit_hall": edit_hall,
     })
 
-
+@never_cache
+@login_required(login_url="login")
 def subjects_page(request):
 
     # -----------------------------
@@ -284,7 +325,8 @@ def subjects_page(request):
     "search_query": query
 })
 
-
+@never_cache
+@login_required(login_url="login")
 def delete_subject(request, pk):
     subject = get_object_or_404(Subject, pk=pk)
     subject.delete()
@@ -296,6 +338,8 @@ def delete_subject(request, pk):
 # ==========================================
 # DEPARTMENT PAGE
 # ==========================================
+@never_cache
+@login_required(login_url="login")
 def departments_page(request):
 
     if request.method == "POST":
@@ -326,7 +370,8 @@ def departments_page(request):
         "search": search
     })
 
-
+@never_cache
+@login_required(login_url="login")
 def delete_department(request, pk):
     department = get_object_or_404(Department, pk=pk)
 
@@ -338,8 +383,8 @@ def delete_department(request, pk):
     messages.success(request, "Department deleted successfully.")
     return redirect("departments")
 
-
-
+@never_cache
+@login_required(login_url="login")
 def master_upload(request):
 
     if request.method == "POST" and request.FILES.get("excel_file"):
@@ -467,7 +512,8 @@ def master_upload(request):
 
 
 
-
+@never_cache
+@login_required(login_url="login")
 def seating_overview(request):
 
     query = request.GET.get("q")
@@ -516,7 +562,8 @@ def seating_overview(request):
     })
 
 
-
+@never_cache
+@login_required(login_url="login") 
 def export_master_pdf(request):
 
     allotments = SeatingAllotment.objects.select_related(
@@ -553,4 +600,63 @@ def export_master_pdf(request):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="Seating_Master_List.pdf"'
 
+    return response
+
+@never_cache
+@login_required(login_url="login")
+def download_master_template(request):
+
+    wb = Workbook()
+
+    # ---------------------------
+    # Departments Sheet
+    # ---------------------------
+    sheet = wb.active
+    sheet.title = "Departments"
+    sheet.append(["Department Name"])
+    sheet.append(["Computer Science"])
+    sheet.append(["Commerce"])
+
+    # ---------------------------
+    # Students Sheet
+    # ---------------------------
+    sheet = wb.create_sheet("Students")
+    sheet.append(["Reg No", "Name", "Department Name", "Semester"])
+    sheet.append(["23CS001", "John Doe", "Computer Science", 1])
+
+    # ---------------------------
+    # Subjects Sheet
+    # ---------------------------
+    sheet = wb.create_sheet("Subjects")
+    sheet.append(["Subject Code", "Subject Name", "Department Name", "Semester"])
+    sheet.append(["CS101", "Data Structures", "Computer Science", 1])
+
+    # ---------------------------
+    # Exams Sheet
+    # ---------------------------
+    sheet = wb.create_sheet("Exams")
+    sheet.append(["Subject Code", "Exam Date (YYYY-MM-DD)", "Session (FN/AN)"])
+    sheet.append(["CS101", "2026-03-15", "FN"])
+
+    # ---------------------------
+    # Buildings Sheet
+    # ---------------------------
+    sheet = wb.create_sheet("Buildings")
+    sheet.append(["Building Name"])
+    sheet.append(["Main Block"])
+
+    # ---------------------------
+    # Halls Sheet
+    # ---------------------------
+    sheet = wb.create_sheet("Halls")
+    sheet.append(["Hall No", "Building Name", "Total Seats"])
+    sheet.append([101, "Main Block", 40])
+
+    # Response
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    response["Content-Disposition"] = "attachment; filename=Master_Template.xlsx"
+
+    wb.save(response)
     return response

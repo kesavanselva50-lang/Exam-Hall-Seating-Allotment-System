@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 urlpatterns = [
-    path('', dashboard, name='dashboard'),
+    path("dashboard/", dashboard, name="dashboard"),
 
     path('generate-allotment/', generate_pg_mixed_allotments, name='generate_allotment'),
 
@@ -14,6 +14,9 @@ urlpatterns = [
     path("master-upload/", master_upload, name="master_upload"),
     path("allotments/", seating_overview, name="seating_overview"),
     path('allotments/export-pdf/', export_master_pdf, name='export_master_pdf'),
+    path("",staff_login, name="login"),
+    path("logout/", staff_logout, name="logout"),
+    path("download-template/",download_master_template, name="download_master_template"),
 
 
 ]

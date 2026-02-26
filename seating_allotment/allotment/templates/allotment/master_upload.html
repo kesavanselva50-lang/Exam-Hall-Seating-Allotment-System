@@ -2,63 +2,131 @@
 {% block title %}Master Upload | ONECLICK{% endblock %}
 
 {% block content %}
-<div class="min-h-[80vh] flex items-center justify-center p-6">
-
-    <div class="bg-white rounded-[3rem] shadow-2xl shadow-slate-200 border border-slate-100 w-full max-w-2xl overflow-hidden">
+<div class="min-h-[90vh] flex items-center justify-center p-6 bg-[#f8fafc]">
+    <div class="bg-white rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 w-full max-w-2xl overflow-hidden transition-all duration-500 hover:shadow-indigo-100">
         
-        <div class="p-10 bg-slate-900 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="p-12 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+            <div class="absolute -right-10 -top-10 h-40 w-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
             
-            <div class="relative z-10 flex items-center gap-6">
-                <div class="h-16 w-16 bg-indigo-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/50">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                    </svg>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-6">
+                    <div class="h-20 w-20 bg-gradient-to-tr from-indigo-500 to-blue-400 rounded-3xl flex items-center justify-center shadow-2xl shadow-indigo-500/40 animate-pulse-slow">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black text-white uppercase tracking-tighter">Master Sync</h2>
+                        <p class="text-indigo-300 text-xs font-bold uppercase tracking-[0.3em] opacity-80">Batch Data Injection Engine</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-2xl font-black text-white uppercase tracking-tight">Upload Records</h2>
-                    <p class="text-indigo-300/60 text-[10px] font-black uppercase tracking-[0.2em]">Batch Data Injection Engine</p>
+                <div class="hidden md:block text-right">
+                    <span class="text-[10px] font-black text-indigo-400 uppercase tracking-widest block">System Status</span>
+                    <span class="text-emerald-400 text-xs font-bold uppercase">Ready for Payload</span>
                 </div>
             </div>
         </div>
 
-        <div class="p-10 space-y-8">
-            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        <div class="p-10 space-y-10">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <svg class="w-5 h-5 text-indigo-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Format: .XLSX Only</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <svg class="w-5 h-5 text-indigo-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Max Size: 25MB</span>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-8" id="upload-form">
                 {% csrf_token %}
 
-                <div class="group relative">
-                    <label class="flex flex-col items-center justify-center w-full h-48 border-4 border-dashed border-slate-100 rounded-[2rem] bg-slate-50/50 cursor-pointer hover:bg-slate-50 hover:border-indigo-300 transition-all duration-300">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg class="w-10 h-10 mb-3 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            <p class="text-sm font-black text-slate-500 uppercase tracking-widest">Drop Master .XLSX File</p>
-                            <p class="text-[10px] text-slate-400 font-bold mt-1">Maximum payload: 25MB</p>
+                <div class="relative group">
+                    <label id="drop-area" class="flex flex-col items-center justify-center w-full h-64 border-4 border-dashed border-slate-100 rounded-[2.5rem] bg-slate-50/30 cursor-pointer hover:bg-white hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-500">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                            <div class="mb-4 p-4 bg-white rounded-2xl shadow-sm group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12 text-slate-300 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2a4 4 0 014-4h4m-4 4l2-2m-2 2l-2-2m3-12l4 4m0 0l-4 4m4-4H7a4 4 0 00-4 4v9"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm font-black text-slate-600 uppercase tracking-widest">Drag & Drop Master File</p>
+                            <p class="text-[10px] text-slate-400 font-bold mt-2 uppercase tracking-widest">or click to browse filesystem</p>
                         </div>
                         <input type="file" name="excel_file" accept=".xlsx" class="hidden" required id="file-upload">
                     </label>
-                    <div id="file-name" class="mt-3 text-center text-xs font-black text-indigo-600 uppercase tracking-tighter"></div>
+                    
+                    <div id="file-indicator" class="hidden absolute inset-0 bg-white/90 backdrop-blur-sm rounded-[2.5rem] flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in">
+                        <svg class="w-12 h-12 text-emerald-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <p id="file-name" class="text-sm font-black text-slate-800 uppercase tracking-tighter text-center break-all"></p>
+                        <button type="button" onclick="resetFile()" class="mt-4 text-[10px] font-black text-red-500 uppercase tracking-widest hover:text-red-700">Remove File</button>
+                    </div>
                 </div>
 
-                <button type="submit"
-                        class="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    EXECUTE MASTER SYNC
-                </button>
+                <div class="flex flex-col gap-4">
+                    <button type="submit" id="submit-btn"
+                            class="w-full py-6 bg-indigo-600 text-white rounded-[1.5rem] font-black shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 text-sm tracking-widest">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        EXECUTE MASTER SYNC
+                    </button>
+                    
+                    <a href="{% url 'download_master_template' %}"
+                       class="w-full py-4 bg-white text-slate-400 border border-slate-100 rounded-[1.5rem] font-black hover:bg-slate-50 hover:text-indigo-600 transition-all flex items-center justify-center gap-3 text-[10px] tracking-[0.2em]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        DOWNLOAD MASTER TEMPLATE
+                    </a>
+                </div>
             </form>
-
-           
-            </div>
         </div>
 
-
+        <div class="px-10 py-6 bg-slate-50/50 border-t border-slate-100 flex items-center justify-center">
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-3">
+                <svg class="w-3 h-3 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                Syncing will overwrite existing matching records
+            </p>
+        </div>
     </div>
-
 </div>
 
 <script>
-    document.getElementById('file-upload').onchange = function() {
-        document.getElementById('file-name').innerHTML = "Selected: " + this.files[0].name;
+    const fileInput = document.getElementById('file-upload');
+    const indicator = document.getElementById('file-indicator');
+    const fileNameDisplay = document.getElementById('file-name');
+    const form = document.getElementById('upload-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    fileInput.onchange = function() {
+        if(this.files.length > 0) {
+            fileNameDisplay.innerHTML = this.files[0].name;
+            indicator.classList.remove('hidden');
+        }
+    };
+
+    function resetFile() {
+        fileInput.value = '';
+        indicator.classList.add('hidden');
+    }
+
+    form.onsubmit = function() {
+        submitBtn.innerHTML = `
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            PROCESSING PAYLOAD...
+        `;
+        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
     };
 </script>
+
+<style>
+    @keyframes pulse-slow {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.9; transform: scale(0.98); }
+    }
+    .animate-pulse-slow {
+        animation: pulse-slow 4s infinite ease-in-out;
+    }
+</style>
 {% endblock %}
