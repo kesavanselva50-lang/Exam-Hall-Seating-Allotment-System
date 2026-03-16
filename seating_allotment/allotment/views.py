@@ -27,8 +27,11 @@ def staff_logout(request):
     return response
 
 @never_cache
-
 def staff_login(request):
+
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
     if request.method == "POST":
         staff_id = request.POST.get("staff_id")
         password = request.POST.get("password")
@@ -37,14 +40,28 @@ def staff_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect("dashboard")  # change if needed
+            return redirect("dashboard")
         else:
             messages.error(request, "Invalid Staff ID or Password")
 
     return render(request, "allotment/staff_login.html")
 
 @never_cache
-@login_required(login_url="login")
+def staff_register(request):
+    if request.method == "POST":
+        staff_id = request.POST['staff_id']
+        password = request.POST['password']
+
+        User.objects.create_user(
+            username=staff_id,
+            password=password
+        )
+
+        return redirect('login')
+
+    return render(request, 'allotment/staff_register.html')
+def staff_forgot(request):
+    return render(request, 'allotment/staff_forgot.html')
 
 def export_master_pdf(request):
     allotments = SeatingAllotment.objects.all().order_by(

@@ -16,6 +16,8 @@ urlpatterns = [
     path('allotments/export-pdf/', export_master_pdf, name='export_master_pdf'),
     path("",staff_login, name="login"),
     path("logout/", staff_logout, name="logout"),
+    path('staff-forgot/',staff_forgot, name='staff_forgot'),
+    path('staff-register/',staff_register, name='staff_register'),
     path("download-template/",download_master_template, name="download_master_template"),
 
 

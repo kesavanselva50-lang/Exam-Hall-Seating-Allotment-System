@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Recovery | Faculty Portal</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #8989ba 0%, #a7008c 100%);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+        }
+
+        .recovery-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+        }
+
+        .input-gray {
+            background-color: #e6e6e6;
+            transition: all 0.3s ease;
+        }
+
+        .input-gray:focus {
+            background-color: #f2f2f2;
+            box-shadow: 0 0 0 2px rgba(87, 184, 70, 0.2);
+        }
+
+        .btn-green {
+            background-color: #57b846;
+            transition: all 0.3s ease;
+        }
+
+        .btn-green:hover {
+            background-color: #333333;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-img { 
+            animation: float 4s ease-in-out infinite; 
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center p-4">
+
+<div class="recovery-card w-full max-w-4xl flex flex-col md:flex-row overflow-hidden p-8 md:p-16 lg:px-24">
+        
+    <div class="hidden md:flex flex-1 items-center justify-center pr-12">
+        <div class="relative float-img">
+            <div class="w-64 h-64 bg-slate-100 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-inner">
+                <svg class="w-32 h-32 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.946-2.597 9.29-6.505 11.791a1 1 0 01-1.49 0C6.097 16.29 3.5 11.947 3.5 7c0-.68.056-1.35.166-2.001zm10.707 3.708a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l3-3z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div class="absolute top-0 left-0 w-3 h-3 border-2 border-blue-400 rounded-full opacity-60"></div>
+            <div class="absolute bottom-10 right-0 w-3 h-3 border-2 border-blue-400 rounded-full opacity-60"></div>
+            <div class="absolute top-10 right-10 w-4 h-4 text-green-500 font-bold opacity-60">△</div>
+            <div class="absolute bottom-20 left-10 w-4 h-4 text-green-500 font-bold opacity-60">△</div>
+        </div>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-center">
+
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-slate-800">Account Recovery</h2>
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">
+                Forgot Staff ID or Password?
+            </p>
+        </div>
+
+        <p class="text-xs text-slate-500 text-center mb-6 leading-relaxed">
+            Enter your registered email address below. We will send you your Staff ID and a link to reset your password.
+        </p>
+
+        <form method="POST" action="#" class="space-y-6">
+            <div class="relative group">
+                <span class="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                </span>
+                <input type="email" 
+                       name="email" 
+                       required 
+                       placeholder="Registered Email Address"
+                       class="w-full input-gray rounded-full py-3.5 pl-14 pr-6 outline-none text-sm font-semibold text-slate-600 placeholder:text-slate-400">
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="btn-green w-full text-white font-bold py-3.5 rounded-full uppercase tracking-wider text-xs shadow-lg">
+                        Send Recovery Info
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-10 text-center border-t border-slate-100 pt-6">
+            <a href="login.html"
+               class="text-xs font-bold text-slate-600 hover:text-green-600 transition-colors inline-flex items-center gap-2 group">
+               <svg class="w-3 h-3 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+               </svg>
+               Back to Login
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
